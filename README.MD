@@ -1,4 +1,5 @@
 HOMEPAGE:
+https://two0250312-examen-node-js.onrender.com
 
 ENDPOINTS:
 /api/snippets -> Vooralle snippets
