@@ -1,0 +1,47 @@
+<%- include('partials/header', { title: "Create New Snippet" }); -%>
+
+<div class="container">
+  <h1>Create New Snippet</h1>
+  <form action="/new" method="POST">
+    <div>
+      <label for="title">Title:</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        placeholder="Enter snippet title"
+        required
+      />
+    </div>
+    <div>
+      <label for="code">Code:</label>
+      <textarea
+        id="code"
+        name="code"
+        rows="6"
+        placeholder="Enter your code here"
+        required
+      ></textarea>
+    </div>
+    <div>
+      <label for="language">Language:</label>
+      <input
+        type="text"
+        id="language"
+        name="language"
+        placeholder="e.g. JavaScript"
+        required
+      />
+    </div>
+    <div>
+      <label for="tags">Tags (comma separated):</label>
+      <input
+        type="text"
+        id="tags"
+        name="tags"
+        placeholder="e.g. async, fetch, JavaScript"
+      />
+    </div>
+    <button type="submit">Create Snippet</button>
+  </form>
+</div>

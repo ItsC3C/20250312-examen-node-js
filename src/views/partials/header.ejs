@@ -20,18 +20,15 @@
         color: #fff;
         padding: 1em;
       }
-
       header nav ul {
         list-style: none;
         margin: 0;
         padding: 0;
         display: flex;
       }
-
       header nav ul li {
         margin-right: 1em;
       }
-
       header nav ul li a {
         color: #fff;
         text-decoration: none;
@@ -46,27 +43,23 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
-      /* Form Styles */
+      /* Form Styles (Dashboard Filter & Others) */
       form {
         margin-bottom: 1.5em;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
       }
-
       form label {
         margin-right: 0.5em;
         font-weight: bold;
       }
-
-      form select {
+      form select,
+      form input[type="text"],
+      form textarea {
         margin-right: 1.5em;
         padding: 0.4em;
         font-size: 1em;
         border: 1px solid #ccc;
         border-radius: 3px;
       }
-
       form button {
         padding: 0.5em 1em;
         font-size: 1em;
@@ -76,30 +69,45 @@
         border-radius: 3px;
         cursor: pointer;
       }
-
       form button:hover {
         background-color: #555;
       }
 
-      /* Table Styles */
+      /* Form Group Styles (Used in New Snippet Form) */
+      .form-group {
+        margin-bottom: 1em;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5em;
+        font-weight: bold;
+      }
+      .form-group input[type="text"],
+      .form-group textarea {
+        width: 100%;
+        padding: 0.5em;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+      }
+
+      /* Table Styles (Dashboard) */
       table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 1em;
       }
-
       table thead {
         background-color: #333;
         color: #fff;
       }
-
       table th,
       table td {
         padding: 0.8em;
         border: 1px solid #ddd;
         text-align: left;
       }
-
       table tbody tr:nth-child(even) {
         background-color: #f2f2f2;
       }

@@ -6,31 +6,40 @@ import cookieParser from "cookie-parser";
 import path from "path";
 import connectToDb from "./config/db";
 import snippetRoutes from "./routes/snippetRoutes";
-import errorMiddleware from "./middleware/errorMiddleware";
 import dashboardRoutes from "./routes/dashboardRoutes";
+import errorMiddleware from "./middleware/errorMiddleware";
 
-// Variables
+// Constants
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
+// Middlewares
 app.use(cors({ credentials: true, origin: "http://localhost:3001" }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// View engine and static files
 app.set("view engine", "ejs");
-app.set("views", path.join("src", "views"));
-app.use(express.static(path.join("src", "public")));
+app.set("views", path.resolve("src", "views"));
+app.use(express.static(path.resolve("src", "public")));
 
 // Routes
 app.use("/api/snippets", snippetRoutes);
 app.use("/", dashboardRoutes);
 
-// Global error handler
+// Error handling middleware
 app.use(errorMiddleware);
 
-// Server Listening
-app.listen(PORT, async () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
-  await connectToDb();
-});
+// Start the server
+(async () => {
+  try {
+    await connectToDb();
+    app.listen(PORT, () => {
+      console.log(`🚀 Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("❌ Error connecting to the database:", error);
+    process.exit(1);
+  }
+})();

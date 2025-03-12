@@ -56,14 +56,13 @@ export const deleteSnippet = async (req: Request, res: Response) => {
     const { id } = req.params;
     const deletedSnippet = await Snippet.findByIdAndDelete(id);
     if (!deletedSnippet) {
-      res.status(404).json({ message: "Snippet not found" });
+      res.status(404).render("error", { message: "Snippet not found" });
       return;
     }
-    res
-      .status(200)
-      .json({ status: "success", message: "Snippet deleted successfully" });
+    // After deletion, redirect to the dashboard to refresh the list
+    res.redirect("/");
   } catch (error: unknown) {
-    res.status(500).json({
+    res.status(500).render("error", {
       message: error instanceof Error ? error.message : "Something went wrong",
     });
   }
