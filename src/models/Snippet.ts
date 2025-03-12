@@ -1,4 +1,4 @@
-import { Schema, model, Document } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 import { ISnippet } from "../types/snippetTypes";
 
 interface ISnippetDocument extends Omit<ISnippet, "id">, Document {}
@@ -14,6 +14,4 @@ const snippetSchema = new Schema<ISnippetDocument>(
   { timestamps: true }
 );
 
-const Snippet = model<ISnippetDocument>("Snippet", snippetSchema);
-
-export default Snippet;
+export const Snippet = mongoose.model("Snippet", snippetSchema);

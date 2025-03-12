@@ -1,0 +1,94 @@
+<%
+  // Helper function to get unique languages from snippets
+  function getUniqueLanguages(snippets) {
+    const langs = snippets.map(snippet => snippet.language);
+    return [...new Set(langs)];
+  }
+
+  // Helper function to get unique tags from snippets (assuming snippet.tags is an array)
+  function getUniqueTags(snippets) {
+    const tagsArr = snippets.flatMap(snippet => snippet.tags);
+    return [...new Set(tagsArr)];
+  }
+
+  // Provide default values in case they're not passed from the route
+  const languageVal = typeof language !== "undefined" ? language : "";
+  const languagesArr = (typeof languages !== "undefined" && languages.length)
+    ? languages
+    : getUniqueLanguages(snippets);
+
+  const tagsVal = typeof tags !== "undefined" ? tags : "";
+  const allTagsArr = (typeof allTags !== "undefined" && allTags.length)
+    ? allTags
+    : getUniqueTags(snippets);
+%>
+<%- include('partials/header', { title: "Snippets Dashboard" }); -%>
+
+<div class="container">
+  <h1>Snippets Dashboard</h1>
+
+  <!-- Filter Form -->
+  <form id="filterForm" action="/" method="GET">
+    <label for="language">Language:</label>
+    <select id="language" name="language">
+      <option value="/" <%= (!languageVal || languageVal === "/") ? 'selected' : '' %>>---</option>
+      <% languagesArr.forEach(lang => { %>
+        <option value="<%= lang %>" <%= lang === languageVal ? 'selected' : '' %>><%= lang %></option>
+      <% }); %>
+    </select>
+
+    <label for="tags">Tags:</label>
+    <select id="tags" name="tags">
+      <option value="/" <%= (!tagsVal || tagsVal === "/") ? 'selected' : '' %>>---</option>
+      <% allTagsArr.forEach(tag => { %>
+        <option value="<%= tag %>" <%= tag === tagsVal ? 'selected' : '' %>><%= tag %></option>
+      <% }); %>
+    </select>
+
+    <button type="submit">Filter</button>
+  </form>
+
+  <!-- Snippet Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Code</th>
+        <th>Language</th>
+        <th>Tags</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% snippets.forEach(snippet => { %>
+      <tr>
+        <td><%= snippet.title %></td>
+        <td><%= snippet.code %></td>
+        <td><%= snippet.language %></td>
+        <td><%= snippet.tags.join(", ") %></td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  // Intercept form submission to build a URL with only non-default filters.
+  document.getElementById('filterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const languageSelect = document.getElementById('language');
+    const tagSelect = document.getElementById('tags');
+    const language = languageSelect.value;
+    const tag = tagSelect.value;
+    
+    let url = '/?';
+    const params = [];
+    if (language && language !== "/") {
+      params.push("language=" + encodeURIComponent(language));
+    }
+    if (tag && tag !== "/") {
+      params.push("tags=" + encodeURIComponent(tag));
+    }
+    url += params.join("&");
+    window.location.href = url;
+  });
+</script>

@@ -1,12 +1,22 @@
 {
   "compilerOptions": {
-    "target": "ES2020",                // Update naar een recentere ES-versie voor betere async/await ondersteuning
-    "module": "CommonJS",               // Correct voor Node.js
-    "rootDir": "./src",                 // Zorgt ervoor dat je TypeScript-bestanden zich in 'src' bevinden
-    "outDir": "./dist",                 // De gecompileerde JavaScript-bestanden komen in 'dist'
-    "strict": true,                      // Houd strict mode aan voor betere type-checking
-    "esModuleInterop": true,             // Zorgt voor betere compatibiliteit met ES-modules
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "target": "ES2022",
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true                               /* Skip type checking all .d.ts files. */
-  }
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
